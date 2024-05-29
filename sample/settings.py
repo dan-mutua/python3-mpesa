@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "*******************************************************************"
+SECRET_KEY = config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -141,59 +143,24 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # to a module that defines an EmailBackend class.
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-# Host for sending email.
 EMAIL_HOST = "smtp.gmail.com"
-# Port for sending email.
 EMAIL_PORT = 587
-# Whether to send SMTP 'Date' header in the local time zone or in UTC.
 EMAIL_USE_LOCALTIME = True
-# Optional SMTP authentication information for EMAIL_HOST.
-EMAIL_HOST_USER = ""
-# App password, created after ensuring 2fa in you google account
-EMAIL_HOST_PASSWORD = ""
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-# Endure this is set to none
-EMAIL_SSL_CERTFILE = None
-EMAIL_TIMEOUT = None
-# What receipt will see as sender
-DEFAULT_FROM_EMAIL = "<noreply@projectsdjango.com>"
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
+EMAIL_SSL_CERTFILE = config('EMAIL_SSL_CERTFILE', default=None)
+EMAIL_TIMEOUT = config('EMAIL_TIMEOUT', cast=int, default=None)
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
-###########################################MPESA##################################################################################################
-MPESA_ENVIRONMENT = ""
-
-# Credentials for the daraja app
-
-MPESA_CONSUMER_KEY = ""
-MPESA_CONSUMER_SECRET = ""
-
-# Shortcode to use for transactions. For sandbox  use the Shortcode 1 provided on test credentials page
-
-MPESA_SHORTCODE = ""
-
-# Shortcode to use for Lipa na MPESA Online (MPESA Express) transactions
-# This is only used on sandbox, do not set this variable in production
-# For sandbox use the Lipa na MPESA Online Shorcode provided on test credentials page
-
-MPESA_EXPRESS_SHORTCODE = ""
-
-# Type of shortcode
-# Possible values:
-# - paybill (For Paybill)
-# - till_number (For Buy Goods Till Number)
-
-MPESA_SHORTCODE_TYPE = ""
-
-# Lipa na MPESA Online passkey
-# Sandbox passkey is available on test credentials page
-# Production passkey is sent via email once you go live
-
-MPESA_PASSKEY = ""
-
-# Username for initiator (to be used in B2C, B2B, AccountBalance and TransactionStatusQuery Transactions)
-
-MPESA_INITIATOR_USERNAME = "testapi"
-
-# Plaintext password for initiator (to be used in B2C, B2B, AccountBalance and TransactionStatusQuery Transactions)
-
-MPESA_INITIATOR_SECURITY_CREDENTIAL = ""
+MPESA_ENVIRONMENT = config('MPESA_ENVIRONMENT')
+MPESA_CONSUMER_KEY = config('MPESA_CONSUMER_KEY')
+MPESA_CONSUMER_SECRET = config('MPESA_CONSUMER_SECRET')
+MPESA_SHORTCODE = config('MPESA_SHORTCODE')
+MPESA_EXPRESS_SHORTCODE = config('MPESA_EXPRESS_SHORTCODE', default=None)
+MPESA_SHORTCODE_TYPE = config('MPESA_SHORTCODE_TYPE')
+MPESA_PASSKEY = config('MPESA_PASSKEY')
+MPESA_INITIATOR_USERNAME = config('MPESA_INITIATOR_USERNAME')
+MPESA_INITIATOR_SECURITY_CREDENTIAL = config('MPESA_INITIATOR_SECURITY_CREDENTIAL')
