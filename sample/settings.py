@@ -38,13 +38,13 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "livereload",  # https://pypi.org/project/django-livereload/
+    "livereload",  
     "django.contrib.staticfiles",
     "crispy_forms",
-    "crispy_bootstrap5",  # makes forms in Django look nice
+    "crispy_bootstrap5",
     "django_daraja",
     "django_otp",
-    "django_otp.plugins.otp_totp",  # 2fa app
+    "django_otp.plugins.otp_totp",
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
